@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="My Webpage">
+    <meta name="keywordss" content="Hello, World! website">
+    <meta name="author" content="Brian Musembi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="mystyle.css">
+    <title>My Webpage</title>
+  </head>
+  <body>
+    <header>
+      <b>
+        <h1>SpeedTyper!</h1>
+      </b>
+    </header>
+    <div>Type The Given Word Within <span id="seconds">3</span> Seconds:</div>
+    <h2 id="currentword"></h2>
+    <input type="text" placeholder="Start typing..." id="word-input" autofocus>
+    <h4 id="message"></h4>
+    <h3>Time Left:
+      <span id="time">3</span>
+    </h3>
+    <h3>Score:
+      <span id="score">0</span>
+    </h3>
+    <div class="textbox">
+    <h5>Instructions:</h5>
+    <p><i>Type each word in the given amount of seconds to score. To play again, just type the current word and your score will reset</i></p>
+    </div>
+  </body>
+  <script>
+  window.addEventListener('load', init);
+  const levels = {
+    easy: 5,
+    medium: 3,
+    hard: 1};
+  const currentLevel = levels.medium;
+  let time = currentLevel;
+  let score = 0;
+  let isPlaying;
+  const wordInput = document.querySelector('#word-input');
+  const currentWord = document.querySelector('#currentword');
+  const scoreDisplay = document.querySelector('#score');
+  const timeDisplay = document.querySelector('#time');
+  const message = document.querySelector('#message');
+  const seconds = document.querySelector('#seconds');
+  const words = [
+    'hat',
+    'river',
+    'lucky',
+    'statue',
+    'generate',
+    'stubborn',
+    'cocktail',
+    'runaway',
+    'joke',
+    'developer',
+    'establishment',
+    'hero',
+    'javascript',
+    'nutrition',
+    'revolver',
+    'echo',
+    'siblings',
+    'investigate',
+    'horrendous',
+    'symptom',
+    'laughter',
+    'magic',
+    'master',
+    'space',
+    'definition',
+    'astronaut',
+    'banana',
+    'orange',
+    'osteoperosis',
+    'false',
+    'illuminate',
+    'congestion',
+    'horror',
+    'juxtaposition',
+    'saturday',
+    'sharpener',
+    'weekend',
+    'assignment',
+    'sardines',
+    'sorrowful',
+    'joker',
+    'sin',
+    'typewriter',
+    'umbrella',
+    'bottles',
+    'frivolous',
+    'family',
+    'potato',
+    'instrumental',
+    'locker',
+    'onomatopoeia',
+    'Australia',
+    'barnyard',
+    'aspirations',
+    'imagination',
+    'president',
+    'happiness',
+    'syllable',
+    'synonym',
+    'vegetables',
+    'fruits',
+    'coding',
+    'science',
+    'computer',
+    'book',
+    'campfire',
+    'summer',
+    'vacation',
+    'winter',
+    'spring',
+    'autumn',
+    'cellphone',
+    'mansion',
+    'marathon',
+    'television',
+    'internet',
+    'invisible',
+    'police',
+    'mouse',
+    'holiday',
+    'microwave',
+    'illusion',
+    'Canada',
+    'continent',
+    'human',
+    'humanity',
+    'eternal',
+    'small',
+    'confused',
+    'adjective',
+    'microbiology',
+    'biology',
+    'simple',
+    'garage',
+    'mumble',
+    'dance',
+    'party',
+    'refrigerator',
+    'millionaire',
+    'picture',
+    'textbook',
+    'aeroplane',
+    'clock',
+    'finish'];
+  function init() {
+    seconds.innerHTML = currentLevel;
+    showWord(words);
+    wordInput.addEventListener('input', startMatch);
+    setInterval(countdown, 1000);
+    setInterval(checkStatus, 50);}
+  function startMatch() {
+    if (matchWords()) {
+      isPlaying = true;
+      time = currentLevel + 1;
+      showWord(words);
+      wordInput.value = '';
+      score++;}
+    if (score === -1) {
+      scoreDisplay.innerHTML = 0;}
+    else {
+      scoreDisplay.innerHTML = score;}}
+  function matchWords() {
+    if (wordInput.value === currentWord.innerHTML) {
+      message.innerHTML = 'Correct!';
+      return true;}
+    else {
+      message.innerHTML = '';
+      return false;}}
+  function showWord(words) {
+    const randIndex = Math.floor(Math.random() * words.length);
+    currentWord.innerHTML = words[randIndex];}
+  function countdown() {
+    if (time > 0) {
+      time--;}
+    else if (time === 0) {
+      isPlaying = false;}
+      timeDisplay.innerHTML = time;}
+  function checkStatus() {
+    if (!isPlaying && time === 0) {
+      message.innerHTML = 'Game Over!';
+      score = -1;}}
+  </script>
+</html>
